@@ -20,7 +20,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Boolpress</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Boolpress</a>
         <ul class="navbar-nav px-3 ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
@@ -56,6 +56,6 @@
         </div>
     </div>
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/back.js') }}" defer></script> 
 </body>
 </html>
