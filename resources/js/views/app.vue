@@ -1,6 +1,5 @@
 <template>
     <div>
-        vue js bellissim
         <a href="/admin">Admin privata</a>
         <h1>Ciao sono stampato con Vuejs</h1>
     </div>
