@@ -1921,7 +1921,7 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_vm._v("\n    vue js bellissim\n    "), _c("a", {
+  return _c("div", [_c("a", {
     attrs: {
       href: "/admin"
     }
