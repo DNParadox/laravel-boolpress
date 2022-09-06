@@ -14,12 +14,16 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::all();
+        $request_info = $request->all();
+
+        $show_deleted_message = isset($request_info['deleted']) ? $request_info['deleted'] : null;
         
         $data = [
-            'posts' => $posts
+            'posts' => $posts,
+            'show_deleted_message' => $show_deleted_message
         ];
         return view('admin.posts.index', $data);
     }
@@ -67,6 +71,7 @@ class PostController extends Controller
         $data = [
             'post' => $post
         ];
+
         return view('admin.posts.show', $data);
     }
 
@@ -78,7 +83,14 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $post = Post::findOrFail($id);
+
+        $data = [
+            'post' => $post
+        ];
+
+        return view('admin.posts.edit', $data);
     }
 
     /**
@@ -90,7 +102,22 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->validate($this->getValidationRules());
+
+        $form_data = $request->all();
+
+        // Post da modificare
+        $post_to_update = Post::findOrFail($id);
+
+        if($form_data['title'] !== $post_to_update->title){
+            $form_data['slug'] = $this->getFreeSlugFromTitle($form_data['title']);
+        } else {
+            $form_data['slug'] = $post_to_update->slug;
+        }
+        $post_to_update->update($form_data);
+
+        return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
     }
 
     /**
@@ -100,8 +127,11 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {  
+        $post_to_delete = Post::findOrFail($id);
+        $post_to_delete->delete();
+
+        return redirect()->route('admin.posts.index', ['deleted' => 'yes']);
     }
 
     protected function getFreeSlugFromTitle($title) {

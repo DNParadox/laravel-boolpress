@@ -22,8 +22,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="content" class="form-label">Title</label>
-            <input type="text" class="form-control" id="content" name="content">
+            <label for="content" class="form-label">Content</label>
+            <textarea type="text" class="form-control" id="content" name="content"> </textarea>
         </div>
 
         <input type="submit" value="Salva post">

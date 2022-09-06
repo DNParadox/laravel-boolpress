@@ -1,6 +1,6 @@
-
+@extends('layouts.dashboard')
 
 @section('content')
     
-Admin content
+    Admin content
 @endsection

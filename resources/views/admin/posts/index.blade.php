@@ -4,6 +4,12 @@
 @section('content')
     <h1>Lista Post</h1>
 
+  @if ($show_deleted_message === 'yes')
+    <div class="alert alert-danger" role="alert">
+        Post Cancellato correttamente
+    </div>
+  @endif
+
 
     <div class="row row-cols-3">
         @foreach ($posts as $post)
