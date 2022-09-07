@@ -11,4 +11,9 @@ class Post extends Model
         'content',
         'slug'
     ];
+
+    public function userselect() {
+
+        return $this->belongsTo('App\UserSelect');
+    }
 }
