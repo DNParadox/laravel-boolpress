@@ -16,8 +16,7 @@
     <div><strong>Creato il:  </strong> {{ $post->created_at->format(' d F Y') }}</div>
     <div><strong>Aggiornato il:  </strong> {{ $post->updated_at->format('d F Y') }}</div>
     <div><strong>Slug:</strong> {{ $post->slug }}</div>
-    {{-- <div> {{ dd($post->userselect) }}</div> --}}
-
+    <div><strong>Categoria: </strong> {{ $post->category ? $post->category->name : 'nessuna' }}</div>
     <h3 class="mt-3">Contenuto: </h3>
     <p> {{ $post->content }}</p>
 @endsection
