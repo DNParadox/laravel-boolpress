@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersSelectsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUsersSelectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_selects', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->string('slug', 255)->unique();
@@ -28,6 +28,6 @@ class CreateUsersSelectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_selects');
+        Schema::dropIfExists('categories');
     }
 }

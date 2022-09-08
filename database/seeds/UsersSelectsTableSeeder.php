@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\UserSelect;
+use App\Category;
 use Illuminate\Support\Str;
 
 class UsersSelectsTableSeeder extends Seeder
@@ -13,7 +13,7 @@ class UsersSelectsTableSeeder extends Seeder
      */
     public function run()
     {
-        $users_selects = [
+        $categories = [
             'Antipasti',
             'Primi',
             'Secondi',
@@ -22,11 +22,11 @@ class UsersSelectsTableSeeder extends Seeder
         ];
 
         // Per ogni elemento dell'array categories creiamo una nuova riga nel db
-        foreach ($users_selects as $user_select) {
-            $new_user_select = new UserSelect();
-            $new_user_select->name = $user_select;
-            $new_user_select->slug = Str::slug($user_select, '-');
-            $new_user_select->save();
+        foreach ($categories as $category) {
+            $new_category = new Category();
+            $new_category->name = $category;
+            $new_category->slug = Str::slug($category, '-');
+            $new_category->save();
         }
     }
 }

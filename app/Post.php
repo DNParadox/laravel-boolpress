@@ -12,8 +12,8 @@ class Post extends Model
         'slug'
     ];
 
-    public function userselect() {
+    public function category() {
 
-        return $this->belongsTo('App\UserSelect');
+        return $this->belongsTo('App\Category');
     }
 }
