@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -37,9 +38,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
         
         $data = [
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
         return view('admin.posts.create', $data);
     }
@@ -61,6 +64,8 @@ class PostController extends Controller
         $new_post->slug = $this->getFreeSlugFromTitle($new_post->title);
         $new_post->save();
 
+
+        $new_post->tags()->sync($form_data['tags']);
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
 
@@ -93,10 +98,12 @@ class PostController extends Controller
 
         $post = Post::findOrFail($id);
         $categories = Category::all();
+        $tags = Tag::all();
 
         $data = [
             'post' => $post,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.edit', $data);
@@ -111,9 +118,10 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        // Validazione dei dati
         $request->validate($this->getValidationRules());
 
+        // Se validazione è ok, lettura dati form
         $form_data = $request->all();
 
         // Post da modificare
@@ -125,6 +133,13 @@ class PostController extends Controller
             $form_data['slug'] = $post_to_update->slug;
         }
         $post_to_update->update($form_data);
+
+        // Aggiorniamo anche i tag
+        if(isset($form_data['tags'])) {
+            $post_to_update->tags()->sync($form_data['tags']);
+        } else {
+            $post_to_update->tags()->sync([]);
+        }
 
         return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
     }
@@ -138,6 +153,7 @@ class PostController extends Controller
     public function destroy($id)
     {  
         $post_to_delete = Post::findOrFail($id);
+        $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
         return redirect()->route('admin.posts.index', ['deleted' => 'yes']);
@@ -168,7 +184,9 @@ class PostController extends Controller
     protected function getValidationRules() {
         return [
             'title' => 'required|max:255',
-            'content'=> 'required|max:60000' 
+            'content'=> 'required|max:60000', 
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id'
         ];
     }
 }
