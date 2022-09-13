@@ -19,5 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+// Funzionamento equivalente di web.php dove qui andremo a definire le nostri API
 Route::get('/posts', 'Api\PostController@index');

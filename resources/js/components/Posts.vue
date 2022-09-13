@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
       <div class="row row-cols-3 mt-3">
         <div v-for="post in posts" :key="post.id" class="col">
           <div class="card mt-4" style="width: 22rem;height: 180px;">
@@ -45,10 +45,10 @@
       },
       methods: {
         
-        getAxiosJson(PageNumeber){
+        getAxiosJson(PageNumber){
           axios.get('http://127.0.0.1:8000/api/posts', {
             params: {
-              page: PageNumeber,
+              page: PageNumber,
             }
           })
           .then((response)=>{
@@ -58,6 +58,7 @@
             this.currentPaginationPage = response.data.results.current_page;
           })
         },
+        // Taglia il testo se più lungo di 120 caratteri 
         getSlicedText(text){
           
           if(text.length > 120){

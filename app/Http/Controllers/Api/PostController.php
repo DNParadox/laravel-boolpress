@@ -9,6 +9,7 @@ use App\Post;
 class PostController extends Controller
 {
     public function index() {
+        // A differenza di all() , paginate() rende possibile la visualizzazioni di X pagine determinate
         $posts = POST::paginate(6);
 
         $data = [
@@ -16,8 +17,7 @@ class PostController extends Controller
             'results' => $posts
         ];
 
-        return response()->json($data);
-
+        // Sintassi per poter creare un file Json
         return response()->json($data);
     }
 }

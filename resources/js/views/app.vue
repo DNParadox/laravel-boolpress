@@ -1,26 +1,22 @@
 <template>
-    <div>
-        <a href="/admin">Admin privata</a>
-        <div class="container">
-            <h1>{{ PostsTitle }}</h1>
-            <Posts/>
-        </div>
-    </div>
+  <div>
+    <Header />
+    <main>
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
 
-
+<!-- Riga 6 chiamiamo il nosto component (Riga 18)  necessario per il funzionamento delle impaginazioni-->
+<!-- Riga 23 PostsTitle rendo possibile la dinamicità così da poter cambiare eventualmente più titoli ove necessario -->
 <script>
     import Posts from "../components/Posts.vue";
+    import Header from '../components/Header.vue';
     
     export default {
       name: 'App',
       components: {
-        Posts,    
-      },
-      data() { 
-        return{
-          PostsTitle: 'Lista dei miei Post',
-        }   
+        Header,
       },
     }
   </script>
