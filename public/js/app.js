@@ -1909,7 +1909,21 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Header'
+  name: 'Header',
+  data: function data() {
+    return {
+      menuLinks: [{
+        name: 'home',
+        label: 'Home'
+      }, {
+        name: 'about',
+        label: 'About'
+      }, {
+        name: 'blog',
+        label: 'Blog'
+      }]
+    };
+  }
 });
 
 /***/ }),
@@ -2037,14 +2051,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Posts_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Posts.vue */ "./resources/js/components/Posts.vue");
-/* harmony import */ var _components_Header_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Header.vue */ "./resources/js/components/Header.vue");
-
+/* harmony import */ var _components_Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Header.vue */ "./resources/js/components/Header.vue");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   components: {
-    Header: _components_Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Header: _components_Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -2065,7 +2077,30 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("header", [_vm._v("\n    Ciao sono l'header\n")]);
+  return _c("header", [_c("nav", {
+    staticClass: "navbar navbar-expand-lg navbar-light bg-light"
+  }, [_c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "collapse navbar-collapse",
+    attrs: {
+      id: "navbarNav"
+    }
+  }, [_c("ul", {
+    staticClass: "navbar-nav"
+  }, _vm._l(_vm.menuLinks, function (link, index) {
+    return _c("li", {
+      key: index,
+      staticClass: "nav-item"
+    }, [_c("router-link", {
+      staticClass: "nav-link active",
+      attrs: {
+        to: {
+          name: link.name
+        }
+      }
+    }, [_vm._v(" " + _vm._s(link.label))])], 1);
+  }), 0)])])])]);
 };
 
 var staticRenderFns = [];
@@ -2244,7 +2279,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("h1", [_vm._v("Home Page here")]);
+  return _c("h1", [_vm._v("HomePage here")]);
 };
 
 var staticRenderFns = [];
