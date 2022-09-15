@@ -13,7 +13,7 @@
 
     <h1>Modifica Post</h1>
 
-    <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="post">
+    <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -76,6 +76,19 @@
             <label for="content" class="form-label">Content</label>
             <textarea type="text" class="form-control" id="content" name="content">{{ old('content' , $post->content)}} </textarea>
         </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label"> Immagini</label>
+            <input class="form-control" type="file" id="image" name="image">
+        </div>
+
+        @if ($post->cover)
+            <figure>
+                <figcaption> Immagine corrente:</figcaption>
+                <img class="w-50" src="{{ asset('/storage/' . $post->cover) }}" alt="{{ $post->title}}">
+            </figure>
+        @endif
+
 
         <input type="submit" value="Salva modifiche">
         </form>    

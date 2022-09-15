@@ -12,6 +12,8 @@ class PostController extends Controller
         // A differenza di all() , paginate() rende possibile la visualizzazioni di X pagine determinate
         $posts = POST::paginate(6);
 
+     
+
         $data = [
             'success' => true,
             'results' => $posts
@@ -25,6 +27,10 @@ class PostController extends Controller
 
         // Cercare nel database il post con colonna slug = $slug
         $post = Post::where('slug', '=', $slug)->with(['tags', 'category'])->first();
+
+        if($post->cover) {
+            $post->cover = asset('storage/' . $post->cover);
+        }
 
        if($post){
             $data = [

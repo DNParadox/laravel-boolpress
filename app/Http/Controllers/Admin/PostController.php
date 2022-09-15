@@ -8,6 +8,7 @@ use App\Post;
 use Illuminate\Support\Str;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -57,7 +58,15 @@ class PostController extends Controller
     {
         $request->validate($this->getValidationRules());
 
+        
         $form_data = $request->all();
+      
+        if(isset($form_data['image'])) {
+            // Carica il file nella cartella "post-covers" all'interno di Storage
+            // torna il path all'immagine pronta a essere salvata nel DB
+            $img_path = Storage::put('post-covers', $form_data['image']);
+            $form_data['cover'] = $img_path;
+        }
 
         $new_post = new Post();
         $new_post->fill($form_data);
@@ -127,6 +136,17 @@ class PostController extends Controller
         // Post da modificare
         $post_to_update = Post::findOrFail($id);
 
+        if(isset($form_data['image'])) {
+            if($post_to_update->cover) {
+                Storage::delete($post_to_update->cover);
+            }
+
+        
+            $img_path = Storage::put('post-covers', $form_data['image']);
+            $form_data['cover'] = $img_path;
+        }
+
+
         if($form_data['title'] !== $post_to_update->title){
             $form_data['slug'] = $this->getFreeSlugFromTitle($form_data['title']);
         } else {
@@ -153,6 +173,9 @@ class PostController extends Controller
     public function destroy($id)
     {  
         $post_to_delete = Post::findOrFail($id);
+        if($post_to_delete->cover) {
+            Storage::delete($post_to_delete->cover);
+        }
         $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
@@ -186,7 +209,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content'=> 'required|max:60000', 
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|exists:tags,id'
+            'tags' => 'nullable|exists:tags,id',
+            'image' => 'image|nullable|max:1024'
         ];
     }
 }

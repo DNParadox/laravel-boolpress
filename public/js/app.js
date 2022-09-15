@@ -2373,7 +2373,12 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_vm.post ? _c("div", [_c("h1", [_vm._v(" " + _vm._s(_vm.post.title))]), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", _vm._l(_vm.post.tags, function (tag) {
+  }, [_vm.post ? _c("div", [_c("h1", [_vm._v(" " + _vm._s(_vm.post.title))]), _vm._v(" "), _c("img", {
+    attrs: {
+      src: _vm.post.cover,
+      alt: ""
+    }
+  }), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", _vm._l(_vm.post.tags, function (tag) {
     return _c("span", {
       key: tag.id,
       staticClass: "badge bg-info text-dark mr-1"
@@ -53739,7 +53744,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_AboutPage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/AboutPage.vue */ "./resources/js/pages/AboutPage.vue");
 /* harmony import */ var _pages_NotFound_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/NotFound.vue */ "./resources/js/pages/NotFound.vue");
 /* harmony import */ var _pages_BlogPage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/BlogPage.vue */ "./resources/js/pages/BlogPage.vue");
-/* harmony import */ var _pages_SinglePost_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/SinglePost.vue */ "./resources/js/pages/SinglePost.vue");
+/* harmony import */ var _pages_SinglePost_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/SinglePost.vue */ "./resources/js/pages/SinglePost.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -53765,7 +53770,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/blog/:slug',
     name: 'single-post',
-    component: _pages_SinglePost_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _pages_SinglePost_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: '/*',
     name: 'not-found',

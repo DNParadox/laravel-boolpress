@@ -12,7 +12,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.posts.store') }}" method="post">
+    <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('post')
 
@@ -44,12 +44,17 @@
                     for="tag-{{$tag->id}}">
                     {{ $tag->name }}
                 </label>
-            </div>
-            
+            </div>    
         @endforeach
+
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea type="text" class="form-control" id="content" name="content"> </textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label"> Immagini</label>
+            <input class="form-control" type="file" id="image" name="image">
         </div>
 
         <input type="submit" value="Salva post">
