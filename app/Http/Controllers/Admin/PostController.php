@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use App\Category;
 use App\Tag;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewPostAdminEmail;
 
 class PostController extends Controller
 {
@@ -72,6 +74,11 @@ class PostController extends Controller
         $new_post->fill($form_data);
         $new_post->slug = $this->getFreeSlugFromTitle($new_post->title);
         $new_post->save();
+
+
+        // Invio la mail all'amministratore per notificarlo del nuovo post
+        Mail::to('admin@mail.it')->send(new NewPostAdminEmail($new_post));
+       
 
 
         $new_post->tags()->sync($form_data['tags']);
@@ -160,6 +167,8 @@ class PostController extends Controller
         } else {
             $post_to_update->tags()->sync([]);
         }
+
+
 
         return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
     }

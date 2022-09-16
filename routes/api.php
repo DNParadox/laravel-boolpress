@@ -22,3 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Funzionamento equivalente di web.php dove qui andremo a definire le nostri API
 Route::get('/posts', 'Api\PostController@index');
 Route::get ('/posts/{slug}', 'Api\PostController@show');
+
+
+Route::post('/leads', 'Api\LeadsController@store');
